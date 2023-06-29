@@ -35,9 +35,9 @@
           name: '',
           description: '',
           image: '',
-          articles: []
+          articles: [{}]
         },
-        articles: [],
+        articles: [{}],
         isRotating: false,
       };
     },
@@ -45,10 +45,10 @@
       async fetchArticles() {
         try {
           const responses = await bffAxios.get('/mycatalog');
-          const catalogId = responses.data._id;
+          //const nameArticle = responses.data.articles.name;
 
-          const response = await bffAxios.get(`/${catalogId}/articles`);
-          this.articles = response.data;
+          //const response = await bffAxios.get(`/${catalogId}/articles`);
+          this.articles = responses.data.articles.name;
         } catch (error) {
           console.error(error);
         }
@@ -73,7 +73,7 @@
           this.form.name = '';
           this.form.description = '';
           this.form.image = '';
-          this.form.articles = [];
+          this.form.articles = [{}];
   
           // Faire quelque chose avec la réponse, si nécessaire
           console.log(response.data);

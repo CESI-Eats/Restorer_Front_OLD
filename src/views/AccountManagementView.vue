@@ -2,6 +2,8 @@
     <AccountManagement/>
     <CreateArticleForm/>
     <CreateMenuForm/>
+    <ListArticles/>
+    <ListMenus/>
   </template>
   
   <script lang="ts">
@@ -9,12 +11,17 @@
   import AccountManagement from "@/components/AccountManagement.vue"; // @ is an alias to /src
   import CreateArticleForm from "@/components/CreateArticleForm.vue"; // @ is an alias to /src
   import CreateMenuForm from "@/components/CreateMenuForm.vue"; // @ is an alias to /src
+  import ListArticles from "@/components/ListArticles.vue"; // @ is an alias to /src
+  import ListMenus from "@/components/ListMenus.vue"; // @ is an alias to /src
+
   
   @Options({
     components: {
       AccountManagement,
       CreateArticleForm,
       CreateMenuForm,
+      ListArticles,
+      ListMenus,
     },
   
   })
