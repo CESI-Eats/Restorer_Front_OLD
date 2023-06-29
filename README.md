@@ -1,4 +1,4 @@
-# restorer_front
+# Restorer_Front
 
 ## Project setup
 ```
