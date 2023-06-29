@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar v-if="!isMobile" color="primary" app>
       <v-btn to="/">
-        <v-toolbar-title>CESI Eats Delivery</v-toolbar-title>
+        <v-toolbar-title>CESI Eats Restorer</v-toolbar-title>
       </v-btn>
       <v-spacer></v-spacer>
       <v-btn v-if="isAuthenticated" to="/orders" icon>

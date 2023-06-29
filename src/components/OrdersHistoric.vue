@@ -122,7 +122,7 @@
           message: 'Updating orders...',
           color: 'info',
         });
-        bffAxios.post("/setorderdelivered", {orderId: id})
+        bffAxios.post("/setordercooked", {orderId: id})
             .then(response => {
               this.orders = response.data;
               store.commit('showSnackbarinfo', {
