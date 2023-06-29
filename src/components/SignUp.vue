@@ -29,10 +29,10 @@
                 <v-card-title class="text-center">Create Account</v-card-title>
                 <v-card-text>
                   <v-form>
-                    <v-text-field v-model="form.firstName" label="First Name" required></v-text-field>
                     <v-text-field v-model="form.name" label="Name" required></v-text-field>
-                    <v-text-field v-model="form.birthday" label="Birthday" type="date" required></v-text-field>
                     <v-text-field v-model="form.phoneNumber" label="Phone Number" required></v-text-field>
+                    <v-text-field v-model="form.image" label="Link Image" required></v-text-field>
+                    <v-text-field v-model="form.description" label="Description" required></v-text-field>
                     <v-text-field v-model="form.address.street" label="Street" required></v-text-field>
                     <v-text-field v-model="form.address.postalCode" label="Postal Code" required></v-text-field>
                     <v-text-field v-model="form.address.city" label="City" required></v-text-field>
@@ -145,6 +145,7 @@
           password: password,
         })
             .then((response) => {
+              this.createAccount();
               store.state.socket.connect();
               store.state.socket.emit('setClientId',response.data.token);
               store.commit('setToken', response.data.token);
@@ -153,7 +154,6 @@
                 message: 'Login successful',
                 color: 'success',
               });
-              this.createAccount();
             })
             .catch((error) => {
               console.log(error);

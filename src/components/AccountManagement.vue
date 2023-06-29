@@ -6,9 +6,7 @@
             <v-card-title class="text-center">Manage Account</v-card-title>
             <v-card-text>
               <v-form @submit.prevent="updateAccount">
-                <v-text-field v-model="form.firstName" label="First Name" required></v-text-field>
                 <v-text-field v-model="form.name" label="Name" required></v-text-field>
-                <v-text-field v-model="form.birthday" label="Birthday" type="date" required></v-text-field>
                 <v-text-field v-model="form.phoneNumber" label="Phone Number" required></v-text-field>
                 <v-text-field v-model="form.address.street" label="Street" required></v-text-field>
                 <v-text-field v-model="form.address.postalCode" label="Postal Code" required></v-text-field>
@@ -35,9 +33,7 @@
     data() {
       return {
         form: {
-          firstName: '',
           name: '',
-          birthday: '',
           phoneNumber: '',
           kitty: 0,
           address: {
@@ -45,13 +41,14 @@
             postalCode: '',
             city: '',
             country: '',
-          }
+          },
         },
         mode: 'bank transfer'
       };
     },
     mounted() {
       this.fetchAccount();
+      //this.fetchCatalog();
     },
     methods: {
       fetchAccount() {
