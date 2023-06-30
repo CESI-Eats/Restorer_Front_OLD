@@ -24,7 +24,7 @@ bffAxios.interceptors.request.use(addAuthorizationHeader);
 async function handleErrorResponse(error: any) {
     const originalRequest = error.config;
     if (
-        error.response.status === 403 &&
+        error.response.status === 401 &&
         !originalRequest._retry &&
         originalRequest.url !== '/identity/refresh'
     ) {
@@ -35,7 +35,7 @@ async function handleErrorResponse(error: any) {
             const refreshToken = store.state.refreshToken;
             const response = await identityAxios.post('/refresh', {"refreshToken": refreshToken});
             const newToken = response.data.token;
-            const newRefreshToken = response.data.refreshToken;
+            const newRefreshToken = response.data.newRefreshToken;
 
             // Mettez à jour le store avec les nouveaux jetons
             store.commit('setToken', newToken);
