@@ -115,7 +115,7 @@
           message: 'Collect kitty...',
           color: 'info',
         });
-        bffAxios.post('/collectkitty', {amount: this.form.kitty, mode: this.mode})
+        bffAxios.post('/collectkitty', {mode: this.mode})
             .then(() => {
               store.commit('showSnackbarinfo', {
                 message: 'Kitty collected',

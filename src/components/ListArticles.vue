@@ -1,6 +1,8 @@
 <template>
+        <v-row justify="center">
+      <v-col cols="12" sm="8" md="6">
     <div>
-        <h1>Articles</h1>
+      <h1 style="text-align:center;">Articles</h1>
       <v-card v-for="article in articles" :key="article._id" class="mb-5">
         <v-card-title>{{ article.name }}</v-card-title>
         <v-card-text>{{ article.description }}</v-card-text>
@@ -11,10 +13,9 @@
             ></v-img>
         <v-card-subtitle>{{ article.price }} $</v-card-subtitle>
         <v-card-subtitle>{{ article._id }}</v-card-subtitle>
-                    <v-col cols="auto">
+            <v-col cols="8" sm="8" md="6">
                 <v-dialog
                     transition="dialog-bottom-transition"
-                    width="auto"
                 >
                     <template v-slot:activator="{ props }">
                     <v-btn
@@ -26,7 +27,7 @@
                     <v-card>
                         <v-toolbar
                         color="primary"
-                        title="Opening from the bottom"
+                        title="Modifier un article"
                         ></v-toolbar>
                         <v-card-text>
                         <div class="text-h2 pa-12"> 
@@ -50,11 +51,12 @@
                 </v-dialog>
                 </v-col>
         <v-card-actions>
-            <v-btn color="primary" @click="editItem(article)">Modifier</v-btn>
             <v-btn color="secondary" @click="deleteArticle(article._id)">Supprimer</v-btn>
         </v-card-actions>
       </v-card>
     </div>
+    </v-col>
+    </v-row>
   </template>
   
   <script>

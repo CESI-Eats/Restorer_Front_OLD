@@ -1,18 +1,22 @@
 <template>
+<v-row justify="center">
+    <v-col cols="12" sm="8" md="6">
     <v-card>
-      <v-card-title class="animated-title" :class="{ 'green--text': isRotating }">Créer un nouveau menu</v-card-title>
+      <v-card-title class="animated-title" :class="{ 'green--text': isRotating }" style="text-align: center;">Créer un nouveau menu</v-card-title>
     <v-card-subtitle>articles: {{ this.form.articles }}</v-card-subtitle>
       <v-card-text>
         <v-text-field v-model="form.name" label="Nom du menu"></v-text-field>
         <v-textarea v-model="form.description" label="Description du menu"></v-textarea>
         <v-text-field v-model="form.image" label="Image du menu"></v-text-field>
         <v-text-field v-model="articleToAdd" label="Id de l'article"></v-text-field>
-        <v-btn color="primary" @click="addItem">Ajouter un article</v-btn>
       </v-card-text>
       <v-card-actions>
+        <v-btn color="primary" @click="addItem">Ajouter un article</v-btn>
         <v-btn color="primary" @click="createMenu">Créer</v-btn>
       </v-card-actions>
     </v-card>
+    </v-col>
+    </v-row>
   </template>
   
   <script>

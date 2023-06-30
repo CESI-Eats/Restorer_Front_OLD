@@ -1,6 +1,8 @@
 <template>
+ <v-row justify="center">
+ <v-col cols="12" sm="8" md="6">
     <v-card>
-      <v-card-title class="animated-title" :class="{ 'green--text': isRotating }">Créer un nouvel article</v-card-title>
+      <v-card-title class="animated-title" :class="{ 'green--text': isRotating }" style="text-align: center;">Créer un nouvel article</v-card-title>
         <v-card-text>
           <v-text-field v-model="form.name" label="Nom de l'article"></v-text-field>
           <v-textarea v-model="form.description" label="Description de l'article"></v-textarea>
@@ -11,6 +13,8 @@
           <v-btn color="primary" @click="createArticle">Créer</v-btn>
         </v-card-actions>
       </v-card>
+      </v-col>
+      </v-row>
   </template>
   
   <script>
