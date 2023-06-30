@@ -11,9 +11,47 @@
             ></v-img>
         <v-card-subtitle>{{ article.price }} $</v-card-subtitle>
         <v-card-subtitle>{{ article._id }}</v-card-subtitle>
+                    <v-col cols="auto">
+                <v-dialog
+                    transition="dialog-bottom-transition"
+                    width="auto"
+                >
+                    <template v-slot:activator="{ props }">
+                    <v-btn
+                        color="primary"
+                        v-bind="props"
+                    >Modifier un article</v-btn>
+                    </template>
+                    <template v-slot:default="{ isActive }">
+                    <v-card>
+                        <v-toolbar
+                        color="primary"
+                        title="Opening from the bottom"
+                        ></v-toolbar>
+                        <v-card-text>
+                        <div class="text-h2 pa-12"> 
+                            <v-form @submit.prevent="updateArticle">
+                                <v-text-field v-model="form.name" label="Name" required></v-text-field>
+                                <v-text-field v-model="form.description" label="Description" required></v-text-field>
+                                <v-text-field v-model="form.image" label="Image" required></v-text-field>
+                                <v-text-field v-model="form.price" label="Price" required></v-text-field>
+                            </v-form>
+                        </div>
+                        </v-card-text>
+                        <v-card-actions class="justify-end">
+                        <v-btn type="submit" color="primary" @click="updateArticle(article._id)">Update</v-btn>
+                        <v-btn
+                            variant="text"
+                            @click="isActive.value = false"
+                        >Annuler</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                    </template>
+                </v-dialog>
+                </v-col>
         <v-card-actions>
-          <v-btn color="primary" @click="editArticle(article)">Modifier</v-btn>
-          <v-btn color="secondary" @click="deleteArticle(article._id)">Supprimer</v-btn>
+            <v-btn color="primary" @click="editItem(article)">Modifier</v-btn>
+            <v-btn color="secondary" @click="deleteArticle(article._id)">Supprimer</v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -21,26 +59,67 @@
   
   <script>
   import { bffAxios } from '@/services/axios';
+  import {store} from '@/services/store';
   
   export default {
     data() {
       return {
+        catalog: {},
         articles: [],
+        form: 
+            {
+
+            }
       };
     },
     async created() {
-      try {
-        const response = await bffAxios.get('/mycatalog');
-        this.articles = response.data.articles;
-      } catch (error) {
-        console.error(error);
-      }
+       this.getMyCatalog();
     },
     methods: {
-        editArticle(article) {
-      this.editedItem = Object.assign({}, article);
-      this.editDialog = true;
-    },
+        
+        editItem(article) {
+            this.editedItem = Object.assign({}, article);
+            this.editDialog = true;
+            console.log(this.editDialog); // Ajouter cette ligne pour vérifier si la boîte de dialogue est activée
+        },
+        getMyCatalog(){
+            bffAxios.get('/mycatalog')
+        .then(response => {
+              this.catalog = response.data
+              this.articles = response.data.articles
+              store.commit('showSnackbarinfo', {
+                message: 'Catalog got',
+                color: 'success',
+              });
+            })
+            .catch(() => {
+              store.commit('showSnackbarinfo', {
+                message: 'Update failed',
+                color: 'error',
+              });
+            });
+        },
+        updateArticle(id) {
+        store.commit('showSnackbarinfo', {
+          message: 'Updating article...',
+          color: 'info',
+        });
+
+        bffAxios.put(`/${this.catalog._id}/articles/${id}`, this.form)
+        .then(() => {
+              store.commit('showSnackbarinfo', {
+                message: 'Article updated',
+                color: 'success',
+              });
+              this.getMyCatalog();
+            })
+            .catch(() => {
+              store.commit('showSnackbarinfo', {
+                message: 'Update failed',
+                color: 'error',
+              });
+            });
+      },
       async deleteArticle(articleId) {
         try {
           const responses = await bffAxios.get('/mycatalog');
