@@ -76,24 +76,19 @@ export const store = createStore<State>({
             state.snackbarorder.show = true;
         },
         initSocket(state) {
-            state.socket.on("order.submitted", () => {
+            state.socket.on("order.assigned", () => {
                 store.commit('showSnackbarorder', {
                   message: {
                     id: '',
-                    status: 'submitted'
+                    status: 'assigned'
                   },
                   color: 'info',
                 });
               });
-              state.socket.on("order.cooked", () => {
-                store.commit('showSnackbarorder', {
-                  message: {
-                    id: '',
-                    status: 'cooked'
-                  },
-                  color: 'info',
-                });
-              });
+        },
+        connectSocket(state, token: string) {
+            state.socket.connect();
+            state.socket.emit('setClientId', token);
         },
         disconnectSocket(state) {
             state.socket.disconnect();
