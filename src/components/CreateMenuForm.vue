@@ -1,22 +1,12 @@
 <template>
     <v-card>
       <v-card-title class="animated-title" :class="{ 'green--text': isRotating }">Créer un nouveau menu</v-card-title>
+    <v-card-subtitle>articles: {{ this.form.articles }}</v-card-subtitle>
       <v-card-text>
         <v-text-field v-model="form.name" label="Nom du menu"></v-text-field>
         <v-textarea v-model="form.description" label="Description du menu"></v-textarea>
         <v-text-field v-model="form.image" label="Image du menu"></v-text-field>
-        <div v-for="(item, index) in form.articles" :key="index">
-          <v-select
-            :value="item"
-            @input="value => updateItem(index, value)"
-            :articles="articles"
-            item-text="name"
-            item-value="_id"
-            label="Sélectionnez un article"
-            return-object
-          ></v-select>
-          <v-btn color="error" @click="removeItem(index)">Supprimer l'article</v-btn>
-        </div>
+        <v-text-field v-model="articleToAdd" label="Id de l'article"></v-text-field>
         <v-btn color="primary" @click="addItem">Ajouter un article</v-btn>
       </v-card-text>
       <v-card-actions>
@@ -35,32 +25,16 @@
           name: '',
           description: '',
           image: '',
-          articles: [{}]
+          articles: [],
         },
-        articles: [{}],
+        articleToAdd: '',
         isRotating: false,
       };
     },
     methods: {
-      async fetchArticles() {
-        try {
-          const responses = await bffAxios.get('/mycatalog');
-          //const nameArticle = responses.data.articles.name;
-
-          //const response = await bffAxios.get(`/${catalogId}/articles`);
-          this.articles = responses.data.articles.name;
-        } catch (error) {
-          console.error(error);
-        }
-      },
       addItem() {
-        this.form.articles.push();
-      },
-      updateItem(index, value) {
-        this.$set(this.form.articles, index, value);
-      },
-      removeItem(index) {
-        this.form.articles.splice(index, 1);
+        this.form.articles.push(this.articleToAdd);
+        this.articleToAdd = '';
       },
       async createMenu() {
         try {
@@ -73,7 +47,7 @@
           this.form.name = '';
           this.form.description = '';
           this.form.image = '';
-          this.form.articles = [{}];
+          this.form.articles = '';
   
           // Faire quelque chose avec la réponse, si nécessaire
           console.log(response.data);
@@ -84,7 +58,6 @@
       }
     },
     mounted() {
-      this.fetchArticles();
       
       // Ajouter une classe pour activer l'animation après un délai
       setTimeout(() => {
@@ -104,4 +77,3 @@
     transform: rotate(360deg);
   }
   </style>
-  

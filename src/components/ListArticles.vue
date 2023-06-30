@@ -10,6 +10,7 @@
             cover
             ></v-img>
         <v-card-subtitle>{{ article.price }} $</v-card-subtitle>
+        <v-card-subtitle>{{ article._id }}</v-card-subtitle>
         <v-card-actions>
           <v-btn color="primary" @click="editArticle(article)">Modifier</v-btn>
           <v-btn color="secondary" @click="deleteArticle(article._id)">Supprimer</v-btn>

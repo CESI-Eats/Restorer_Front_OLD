@@ -6,6 +6,7 @@
         <v-card-text>{{ menu.description }}</v-card-text>
         <v-img>{{ menu.image }}</v-img>
         <v-card-subtitle>{{ menu.price }}</v-card-subtitle>
+        <v-card-text>{{ menu.articles }}</v-card-text>
         <v-card-actions>
           <v-btn color="primary" @click="editMenu(menu)">Modifier</v-btn>
           <v-btn color="secondary" @click="deleteMenu(menu._id)">Supprimer</v-btn>
